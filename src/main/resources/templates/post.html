@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Your Story</title>
+        <link rel="stylesheet" th:href="@{/css/story.css}">
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+    </head>
+    <body>
+        <div class="main">
+            <div class="left__3">
+                👉 back to my
+                <a class="clickable"
+                    href="/stories">
+                    /stories
+                </a>
+            </div>
+            <form action="/post" method="POST" class="story__header container">
+                <div class="flexitem__100">
+                    <textarea class="story__title typeable bigger flexitem__85"
+                        rows="2"
+                        type="text"
+                        name="title" placeholder="Title of Your Story"></textarea>
+                </div>
+                <div class="flexitem__100">
+                    <input class="story__tags typeable flexitem__85"
+                        type="text"
+                        name="tags"
+                        placeholder="tag">
+                </div>
+                <div class="flexitem__100 container">
+                    <textarea class="story__content typeable flexitem__85"
+                        rows="15"
+                        type="text"
+                        name="content"
+                        placeholder="Your Story goes here..."></textarea>
+                </div>
+                <input type="submit" value="Share" class="submit">
+            </form>
+        </div>
+        <script th:src="@{/script/post.js}" async></script>
+    </body>
+</html>

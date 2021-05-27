@@ -1,0 +1,63 @@
+@import url('style.css');
+
+.story__title {
+    font-size: 120%;
+    font-weight: bold;
+}
+
+.story__content {
+    font-size: 150%;
+}
+
+.story__time, .story__tag, .story__time {
+    font-size: 80%;
+}
+
+.story__time {
+    font-style: italic;
+}
+
+.story__title {
+    color: #000;
+    margin: 1vw;
+}
+
+.story__time {
+    color: #b6b6b6;
+    margin: 2vw;
+}
+
+.story__title:hover {
+    color: #404040;
+}
+
+.story__tag {
+    padding: 2px 5px;
+    border-radius: 10px;
+    margin: 2vw;
+}
+
+.story__tag {
+    color: #404040;
+    background-color: #ececd6;
+}
+
+.story__tag:hover {
+    color: #ececd6;
+    background-color: #404040;
+}
+
+.story__header {
+    background-color: #fcfcaa;
+}
+
+.story__header {
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin: 3vw;
+}
+
+.story__content {
+    color: #404040;
+    margin: 3vw;
+}

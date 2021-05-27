@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Stories</title>
+        <link rel="stylesheet" th:href="@{/css/story.css}">
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+    </head>
+    <body>
+        <div class="main">
+            <div class="left__3">
+                👉
+                <a class="clickable"
+                    href="/post">
+                    /post
+                </a>
+                new story!
+            </div>
+            <div th:each="story : ${stories}" class="story__header">
+                <div class="story__title">
+                    <a th:text="${story.title}"
+                        th:href="@{../story/{id}(id=${story.id})}"
+                        class="story__title clickable">
+                    </a>
+                </div>
+                <span th:each="tag: ${story.tags}">
+                    <a th:text="${tag.name}"
+                        th:href="${tag.href}"
+                        class="story__tag clickable">
+                    </a>
+                </span>
+                <div th:text="${story.postAt}"
+                    class="story__time">
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

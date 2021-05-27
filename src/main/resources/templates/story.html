@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="${story.title}"></title>
+        <link rel="stylesheet" th:href="@{/css/story.css}">
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+    </head>
+    <body>
+        <div class="main">
+            <div class="left__3">
+                👉 back to my
+                <a class="clickable"
+                    href="/stories">
+                    /stories
+                </a>
+            </div>
+            <div class="story__header container">
+                <div class="flexitem__100">
+                    <div class="story__title bigger left__3"
+                        th:text="${story.title}">
+                    </div>
+                </div>
+                <div class="flexitem__100">
+                    <span th:each="tag: ${story.tags}">
+                        <a class="story__tag clickable"
+                            th:text="${tag.name}"
+                            th:href="${tag.href}">
+                        </a>
+                    </span>
+                </div>
+                <div class="story__time flexitem__100"
+                    th:text="${story.postAt}">
+                </div>
+                <div class="story__content flexitem__85"
+                    th:text="${story.content}">
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
