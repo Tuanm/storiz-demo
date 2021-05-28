@@ -25,6 +25,7 @@ public class GeneralController {
 
     static String getUsernameFromCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
+        if (cookies == null) return null;
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("username")) {
                 return cookie.getValue();
