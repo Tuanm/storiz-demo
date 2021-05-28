@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.example.demo.config.LoginConfig;
 import com.example.demo.model.Story;
 import com.example.demo.model.Tag;
 import com.example.demo.service.StoryService;
@@ -42,7 +43,10 @@ public class StoryController {
     String post(HttpServletRequest request) {
         String username = GeneralController
             .getUsernameFromCookie(request);
-        if (username == null) return "redirect:/login";
+        if (username == null
+            || !LoginConfig.USERNAME.equals(username)) {
+            return "redirect:/login";
+        }
         return "post";
     }
 
@@ -50,34 +54,46 @@ public class StoryController {
     String post(HttpServletRequest request, Model model) {
         String username = GeneralController
             .getUsernameFromCookie(request);
-        if (username == null) return "redirect:/login";
+        if (username == null
+            || !LoginConfig.USERNAME.equals(username)) {
+            return "redirect:/login";
+        }
         String title = request.getParameter("title");
         String tags = request.getParameter("tags");
         String content = request.getParameter("content");
-        Story story = new Story();
         List<String> error = new ArrayList<>();
         if (title == null || title == "") {
             error.add("title cannot be empty");
         }
-        else story.withTitle(title);
         if (tags == null || tags == "") ;
-        else for (String word : tags.split(" ")) {
+        if (content == null || content == "") {
+            error.add("content cannot be empty");
+        }
+        if (error.size() > 0) {
+            model.addAttribute("error", error);
+            System.out.println(model);
+            return "post";
+        }
+        Story story = createStoryFrom(title, content, tags);
+        return trySaveThenRedirect(story);
+    }
+
+    private Story createStoryFrom(
+        String title, String content, String tags) {
+        Story story = new Story();
+        story.withTitle(title);
+        for (String word : tags.split(" ")) {
             String tag = word.trim().toLowerCase();
             story.addTags(new Tag().link(story)
                 .withName(tag)
                 .withHref("/tags/" + tag));
         }
-        if (content == null || content == "") {
-            error.add("content cannot be empty");
-        }
-        else story.withContent(content);
-        if (error.size() > 0) {
-            model.addAttribute("story", story);
-            model.addAttribute("error", error);
-            System.out.println(model);
-            return "post";
-        }
+        story.withContent(content);
         story.postAt(LocalDateTime.now());
+        return story;
+    }
+
+    private String trySaveThenRedirect(Story story) {
         for (Tag tag : story.tags) {
             try {
                 tagService.save(tag);
@@ -87,7 +103,6 @@ public class StoryController {
         }
         try {
             int id = storyService.save(story);
-            model.addAttribute("id", id);
             return "redirect:/story/" + id;
         } catch (Exception ex) { // SQLException
             System.out.println(ex.getMessage());

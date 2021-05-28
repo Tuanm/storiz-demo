@@ -13,14 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class LoginController {
-    private String username = LoginConfig.USERNAME;
-    private String password = LoginConfig.PASSWORD;
-
     @GetMapping(path = "/login")
     String login(HttpServletRequest request) {
         String username = GeneralController
             .getUsernameFromCookie(request);
-        if (username != null) {
+        if (username != null
+            && LoginConfig.USERNAME.equals(username)) {
             return "forward:/stories";
         }
         return "login";
@@ -31,8 +29,9 @@ public class LoginController {
         HttpServletResponse response, Model model) {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        if (this.username.equals(username)
-            && this.password.equals(password)) {
+        if (username != null && password != null
+            && LoginConfig.USERNAME.equals(username)
+            && LoginConfig.PASSWORD.equals(password)) {
             Cookie cookie = new Cookie("username", username);
             cookie.setMaxAge(300); // 300 seconds = 5 minutes
             response.addCookie(cookie);
