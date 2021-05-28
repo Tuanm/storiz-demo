@@ -39,12 +39,18 @@ public class StoryController {
     }
 
     @GetMapping(path = "/post")
-    String post() {
+    String post(HttpServletRequest request) {
+        String username = GeneralController
+            .getUsernameFromCookie(request);
+        if (username == null) return "redirect:/login";
         return "post";
     }
 
     @PostMapping(path = "/post")
     String post(HttpServletRequest request, Model model) {
+        String username = GeneralController
+            .getUsernameFromCookie(request);
+        if (username == null) return "redirect:/login";
         String title = request.getParameter("title");
         String tags = request.getParameter("tags");
         String content = request.getParameter("content");

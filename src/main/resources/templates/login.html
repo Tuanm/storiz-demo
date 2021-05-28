@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Wait a minute!</title>
+        <link rel="stylesheet" th:href="@{/css/story.css}">
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+    </head>
+    <body>
+        <div class="main">
+            <div class="left__3">
+                👉 back to my
+                <a class="clickable"
+                    href="/stories">
+                    /stories
+                </a>
+            </div>
+            <form action="/login" method="POST" class="story__header container">
+                <div class="flexitem__100">
+                    <input class="story__title typeable flexitem__85 bigger left__3"
+                        type="text"
+                        name="username" placeholder="Name">
+                </div>
+                <div class="flexitem__100">
+                    <input class="story__title typeable flexitem__85 bigger left__3"
+                        type="password"
+                        name="password" placeholder="Key">
+                </div>
+                <input type="submit" value="Start" class="submit">
+            </form>
+        </div>
+    </body>
+</html>
