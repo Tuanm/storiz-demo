@@ -3,13 +3,9 @@ package com.example.demo.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -23,18 +19,7 @@ public class Tag {
     @Column(name = "href")
     public String href;
 
-    @ManyToMany(
-        fetch = FetchType.LAZY,
-        cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-        }
-    )
-    @JoinTable(
-        name = "TagRef",
-        joinColumns = @JoinColumn(name = "name"),
-        inverseJoinColumns = @JoinColumn(name = "id")
-    )
+    @ManyToMany(mappedBy = "tags")
     public Set<Story> stories;
 
     public Tag() {

@@ -55,7 +55,7 @@ public class StoryController {
         }
         else story.withTitle(title);
         if (tags == null || tags == "") ;
-        else for (String word : tags.split("[, ]+")) {
+        else for (String word : tags.split(" ")) {
             String tag = word.trim().toLowerCase();
             story.addTags(new Tag().link(story)
                 .withName(tag)
@@ -72,15 +72,20 @@ public class StoryController {
             return "post";
         }
         story.postAt(LocalDateTime.now());
-        // for (Tag tag : story.tags) {
-        //     try {
-        //         tagService.save(tag);
-        //     } catch (Exception ex) {
-        //         System.out.println(ex.getMessage());
-        //     }
-        // }
-        int id = storyService.save(story);
-        model.addAttribute("id", id);
-        return "stories";
+        for (Tag tag : story.tags) {
+            try {
+                tagService.save(tag);
+            } catch (Exception ex) { // SQLException
+                System.out.println(ex.getMessage());
+            }
+        }
+        try {
+            int id = storyService.save(story);
+            model.addAttribute("id", id);
+            return "redirect:/story/" + id;
+        } catch (Exception ex) { // SQLException
+            System.out.println(ex.getMessage());
+        }
+        return "redirect:/stories";
     }
 }

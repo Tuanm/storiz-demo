@@ -22,12 +22,14 @@
                         class="story__title clickable">
                     </a>
                 </div>
-                <span th:each="tag: ${story.tags}">
-                    <a th:text="${tag.name}"
-                        th:href="${tag.href}"
-                        class="story__tag clickable">
-                    </a>
-                </span>
+                <div class="left__3">
+                    <span th:each="tag: ${story.tags}">
+                        <a th:text="${tag.name}"
+                            th:href="${tag.href}"
+                            class="story__tag clickable">
+                        </a>
+                    </span>
+                </div>
                 <div th:text="${story.postAt}"
                     class="story__time">
                 </div>

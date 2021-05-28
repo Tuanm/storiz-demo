@@ -20,7 +20,7 @@
                         th:text="${story.title}">
                     </div>
                 </div>
-                <div class="flexitem__100">
+                <div class="flexitem__100 left__3">
                     <span th:each="tag: ${story.tags}">
                         <a class="story__tag clickable"
                             th:text="${tag.name}"
@@ -28,7 +28,7 @@
                         </a>
                     </span>
                 </div>
-                <div class="story__time flexitem__100"
+                <div class="story__time flexitem__100 left__3"
                     th:text="${story.postAt}">
                 </div>
                 <div class="story__content flexitem__85"

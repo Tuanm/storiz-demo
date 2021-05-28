@@ -2,6 +2,10 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+span {
+    width: min-content;
+}
+
 input[type="text"], textarea {
     width: 100%;
     box-sizing: border-box;

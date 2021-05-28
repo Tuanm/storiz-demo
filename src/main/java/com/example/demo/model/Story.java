@@ -1,15 +1,11 @@
 package com.example.demo.model;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,13 +31,7 @@ public class Story {
     @Column(name = "post_at")
     public LocalDateTime postAt;
 
-    @ManyToMany(
-        fetch = FetchType.LAZY,
-        cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-        }
-    )
+    @ManyToMany
     @JoinTable(
         name = "TagRef",
         joinColumns = @JoinColumn(name = "id"),
@@ -64,8 +54,7 @@ public class Story {
     }
 
     public Story addTags(Tag... tags) {
-        this.tags = Arrays.stream(tags)
-            .collect(Collectors.toSet());
+        for (Tag tag : tags) this.tags.add(tag);
         return this;
     }
 

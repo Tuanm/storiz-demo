@@ -20,7 +20,9 @@ public class StoryService implements GeneralService<Story, Integer> {
 
     @Override
     public List<Story> findAll() {
-        return repository.findAll();
+        List<Story> stories = repository.findAll();
+        stories.sort((s1, s2) -> -s1.postAt.compareTo(s2.postAt));
+        return stories;
     }
 
     @Override
